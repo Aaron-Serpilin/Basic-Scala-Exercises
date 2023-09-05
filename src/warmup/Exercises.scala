@@ -37,7 +37,7 @@ object Exercises {
           indexOfMax = i
         }
       }
-      return indexOfMax
+      indexOfMax
     }
   }
 
@@ -69,7 +69,7 @@ object Exercises {
       }
     }
 
-    if (numberValidInputs > 0) {return gradesSummation/numberValidInputs;} else {return 0;}
+    if (numberValidInputs > 0) {gradesSummation/numberValidInputs;} else {0;}
   }
 
     /* Assignment 3:
@@ -121,7 +121,7 @@ object Exercises {
       }
     }
 
-    return conjectureLength;
+    conjectureLength;
   }
 
 
@@ -219,7 +219,7 @@ Indication of length : 7 lines
       wordCountMap(lowerCaseWord) =  wordCountMap.getOrElse(lowerCaseWord, 0) + 1;
     }
 
-    return wordCountMap;
+    wordCountMap;
   }
 
   /* Assignment 6: Elo ratings
@@ -272,7 +272,7 @@ Indication of length 12 added lines
   val eloK = 24
 
   def updateEloScores(players : List[Player] , games : List[Game]) : Unit = {
-    
+
 
   }
 
@@ -455,11 +455,14 @@ Indication of length: 15 lines
 Indication of length: 5 lines
    */
 
-  def mergeSort(a : Array[Int]) : Array[Int] = {
-    null
+  def mergeSort(a: Array[Int]): Array[Int] = {
+    if (a.length <= 1) {
+      return a
+    } else {
+      val (firstHalf, secondHalf) = splitArray(a)
+      val sortedFirstHalf = mergeSort(firstHalf)
+      val sortedSecondHalf = mergeSort(secondHalf)
+      mergeSortedArrays(sortedFirstHalf, sortedSecondHalf)
+    }
   }
-
-
-
 }
-
