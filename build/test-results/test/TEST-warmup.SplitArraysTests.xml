@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="warmup.SplitArraysTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-09-05T13:06:16" hostname="Jays-MacBook-Pro-2.local" time="0.093">
+<testsuite name="warmup.SplitArraysTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-09-05T14:31:59" hostname="Jays-MacBook-Pro-2.local" time="0.112">
   <properties/>
-  <testcase name="split0" classname="warmup.SplitArraysTests" time="0.088"/>
-  <testcase name="split1" classname="warmup.SplitArraysTests" time="0.001"/>
+  <testcase name="split0" classname="warmup.SplitArraysTests" time="0.107"/>
+  <testcase name="split1" classname="warmup.SplitArraysTests" time="0.002"/>
   <testcase name="split2" classname="warmup.SplitArraysTests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

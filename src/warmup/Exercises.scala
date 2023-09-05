@@ -182,10 +182,6 @@ Indication of length : 12 lines
   }
 
 
-
-
-
-
   /* Assignment 5: Implement a function word count that gives the word counts for all words in a string.
   Ignore whitespace and capitalization.
 
@@ -225,8 +221,6 @@ Indication of length : 7 lines
 
     return wordCountMap;
   }
-
-
 
   /* Assignment 6: Elo ratings
 
@@ -278,27 +272,7 @@ Indication of length 12 added lines
   val eloK = 24
 
   def updateEloScores(players : List[Player] , games : List[Game]) : Unit = {
-
-    for (game <- games) {
-      val playerA = game.playerA;
-      val playerB = game.playerB;
-      val gameOutcome = game.outcome;
-      val probabilityPlayerA = 1 / (1 + math.pow(10, (playerB.rating - playerA.rating) / 400))
-      val probabilityPlayerB = 1 - probabilityPlayerA;
-
-      if (playerA.name != playerB.name) {
-          if (gameOutcome == 0.0) {
-            playerA.rating += eloK * (1 - probabilityPlayerA);
-            playerB.rating += eloK * (0 - probabilityPlayerB);
-          } else if (gameOutcome == 1.0) {
-            playerA.rating += eloK * (0 - probabilityPlayerA);
-            playerB.rating += eloK * (1 - probabilityPlayerB);
-          } else if (gameOutcome == 0.5) {
-            playerA.rating += eloK * (0.5 - probabilityPlayerA);
-            playerB.rating += eloK * (0.5 - probabilityPlayerB);
-          }
-        }
-    }
+    
 
   }
 
@@ -390,12 +364,12 @@ Indication of length: 12 lines
     val firstArray = new Array[Int](arrayLength / 2)
     val secondArray = new Array[Int](arrayLength - (arrayLength / 2))
 
-    for (i <- 0 until arrayLength / 2) {
-      firstArray(i) = a(i)
-    }
-
-    for (i <- arrayLength / 2 until arrayLength) {
-      secondArray(i - (arrayLength / 2)) = a(i)
+    for (i <- 0 until arrayLength) {
+      if (i < arrayLength / 2) {
+        firstArray(i) = a(i)
+      } else {
+        secondArray(i - (arrayLength/2)) = a(i)
+      }
     }
 
     (firstArray, secondArray)
@@ -436,13 +410,26 @@ Indication of length: 12 lines
 
 Indication of length: 15 lines
    */
-  def mergeSortedArrays(a : Array[Int], b : Array[Int]) : Array[Int] = {
-    return null
+  def mergeSortedArrays(a: Array[Int], b: Array[Int]): Array[Int] = {
+    val mergedArray = new Array[Int](a.length + b.length)
+    var firstArrayIndex = 0
+    var secondArrayIndex = 0
+    var mergedIndex = 0
+
+    while (firstArrayIndex < a.length || secondArrayIndex < b.length) {
+      //We check if there are elements left in a, and that either there are no more elements in b or a's element is less than b's
+      if (firstArrayIndex < a.length && (secondArrayIndex >= b.length || a(firstArrayIndex) <= b(secondArrayIndex))) {
+        mergedArray(mergedIndex) = a(firstArrayIndex)
+        firstArrayIndex += 1
+      } else { //If a has no more elements, or it does but b also has some and b's element is less than a's
+        mergedArray(mergedIndex) = b(secondArrayIndex)
+        secondArrayIndex += 1
+      }
+      mergedIndex += 1
+    }
+
+    mergedArray
   }
-
-
-
-
 
   /* Assignment 10 : Mergesort
 
