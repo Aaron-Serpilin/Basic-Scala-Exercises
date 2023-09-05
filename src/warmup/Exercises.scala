@@ -69,11 +69,7 @@ object Exercises {
       }
     }
 
-    if (numberValidInputs > 0) {
-      return gradesSummation/numberValidInputs;
-    } else {
-      return 0;
-    }
+    if (numberValidInputs > 0) {return gradesSummation/numberValidInputs;} else {return 0;}
   }
 
     /* Assignment 3:
@@ -174,12 +170,7 @@ Indication of length : 12 lines
     }
 
     var secondHalfwayPoint = 0 ;
-
-    if (height % 2 == 0) {
-      secondHalfwayPoint = midpointHeight -1;
-    } else {
-      secondHalfwayPoint = midpointHeight - 2;
-    }
+    if (height % 2 == 0) { secondHalfwayPoint = midpointHeight -1 } else { secondHalfwayPoint = midpointHeight - 2;}
 
     for (j <- secondHalfwayPoint to 0 by -1) {
       var diamondSpaces = " " * (midpointHeight - j - 1);
@@ -284,10 +275,31 @@ that A played. The elo scores used when computing these deltas are the elo score
 
 Indication of length 12 added lines
    */
-
   val eloK = 24
 
   def updateEloScores(players : List[Player] , games : List[Game]) : Unit = {
+
+    for (game <- games) {
+      val playerA = game.playerA;
+      val playerB = game.playerB;
+      val gameOutcome = game.outcome;
+      val probabilityPlayerA = 1 / (1 + math.pow(10, (playerB.rating - playerA.rating) / 400))
+      val probabilityPlayerB = 1 - probabilityPlayerA;
+
+      if (playerA.name != playerB.name) {
+          if (gameOutcome == 0.0) {
+            playerA.rating += eloK * (1 - probabilityPlayerA);
+            playerB.rating += eloK * (0 - probabilityPlayerB);
+          } else if (gameOutcome == 1.0) {
+            playerA.rating += eloK * (0 - probabilityPlayerA);
+            playerB.rating += eloK * (1 - probabilityPlayerB);
+          } else if (gameOutcome == 0.5) {
+            playerA.rating += eloK * (0.5 - probabilityPlayerA);
+            playerB.rating += eloK * (0.5 - probabilityPlayerB);
+          }
+        }
+    }
+
   }
 
   class Player(
@@ -372,8 +384,21 @@ Use "new Array[Int](length)" to create a new int array
 Indication of length: 12 lines
 
    */
-  def splitArray(a : Array[Int]) : (Array[Int],Array[Int]) = {
-    null
+
+  def splitArray(a: Array[Int]): (Array[Int], Array[Int]) = {
+    val arrayLength = a.length
+    val firstArray = new Array[Int](arrayLength / 2)
+    val secondArray = new Array[Int](arrayLength - (arrayLength / 2))
+
+    for (i <- 0 until arrayLength / 2) {
+      firstArray(i) = a(i)
+    }
+
+    for (i <- arrayLength / 2 until arrayLength) {
+      secondArray(i - (arrayLength / 2)) = a(i)
+    }
+
+    (firstArray, secondArray)
   }
 
 
