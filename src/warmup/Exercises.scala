@@ -105,8 +105,6 @@ object Exercises {
     Indication of solution length : 9 lines
      */
 
-
-
   def collatzLength(start : Long) : Long = {
     var conjectureLength = 0;
     var conjectureValue = start;
@@ -269,24 +267,56 @@ that A played. The elo scores used when computing these deltas are the elo score
 
 Indication of length 12 added lines
    */
-  val eloK = 24
+  val eloK = 24.0
 
   def updateEloScores(players : List[Player] , games : List[Game]) : Unit = {
 
+    for (game <- games) {
 
+      val playerA = game.playerA
+      val playerB = game.playerB
+      val gameOutcome = game.outcome
+
+      if (gameOutcome == 0.0) { //PlayerA wins
+        playerA.ratingCalculator(playerA, 1.0, game.probabilityCalculator(playerA, playerB))
+        playerB.ratingCalculator(playerB, 0.0, game.probabilityCalculator(playerB, playerA))
+      } else if (gameOutcome == 1.0) { //Draw
+        playerA.ratingCalculator(playerA, 0.0, game.probabilityCalculator(playerA, playerB))
+        playerB.ratingCalculator(playerB, 1.0, game.probabilityCalculator(playerB, playerA))
+      }
+
+      for (player <- players) {
+        player.rating += player.deltaRatingSummation
+        println("The player ratings are " + player.rating)
+      }
+
+    }
   }
 
   class Player(
                 val name : String,
-                var rating : Double) {
+                var rating : Double,
+                var deltaRatingSummation : Double = 0
+              )
+  {
+    def ratingCalculator (player: Player, outcome: Double, probability: Double):Unit  = {
+      //drA = k * (aA - eA)
+      val deltaRating = eloK * (outcome - probability)
+      player.deltaRatingSummation += deltaRating
+    }
   }
 
   class Game(
               val playerA : Player,
               val playerB : Player,
-              val outcome : Double, // 0 means playerA won, 1 means playerB won, 0.5 means draw
+              val outcome : Double // 0 means playerA won, 1 means playerB won, 0.5 means draw
             )
   {
+    def probabilityCalculator (playerA: Player, playerB: Player): Double = {
+      //eA = 1 / ( 1 + 10^((rB - rA) / 400)))
+      val playerProb = 1 / (1 + Math.pow(10, (playerB.rating - playerA.rating) / 400))
+      playerProb
+    }
   }
 
   /* Assignment 7: List speed offenders.
