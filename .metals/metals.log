@@ -1,0 +1,51 @@
+2023.09.04 11:34:03 INFO  Started: Metals version 1.0.1 in folders '/Users/aaronserpilin/Documents/VU/Second-Year/First-Period/Object-Oriented-Functional-Programming/Scala-Assignments/OOFP-Warmup' for client Visual Studio Code 1.81.1.
+Sep 04, 2023 11:34:03 AM org.flywaydb.core.internal.license.VersionPrinter printVersionOnly
+INFO: Flyway Community Edition 9.21.2 by Redgate
+Sep 04, 2023 11:34:03 AM org.flywaydb.core.internal.license.VersionPrinter printVersion
+INFO: See release notes here: https://rd.gt/416ObMi
+Sep 04, 2023 11:34:03 AM org.flywaydb.core.internal.license.VersionPrinter printVersion
+INFO: 
+Sep 04, 2023 11:34:03 AM org.flywaydb.core.FlywayExecutor execute
+INFO: Database: jdbc:h2:file:/Users/aaronserpilin/Documents/VU/Second-Year/First-Period/Object-Oriented-Functional-Programming/Scala-Assignments/OOFP-Warmup/.metals/metals (H2 2.1)
+Sep 04, 2023 11:34:03 AM org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory allAppliedMigrations
+INFO: Schema history table "PUBLIC"."flyway_schema_history" does not exist yet
+Sep 04, 2023 11:34:03 AM org.flywaydb.core.internal.command.DbValidate validate
+INFO: Successfully validated 4 migrations (execution time 00:00.024s)
+Sep 04, 2023 11:34:03 AM org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory create
+INFO: Creating Schema History table "PUBLIC"."flyway_schema_history" ...
+Sep 04, 2023 11:34:03 AM org.flywaydb.core.internal.command.DbMigrate migrateGroup
+INFO: Current version of schema "PUBLIC": << Empty Schema >>
+Sep 04, 2023 11:34:04 AM org.flywaydb.core.internal.command.DbMigrate doMigrateGroup
+INFO: Migrating schema "PUBLIC" to version "1 - Create tables"
+Sep 04, 2023 11:34:04 AM org.flywaydb.core.internal.command.DbMigrate doMigrateGroup
+INFO: Migrating schema "PUBLIC" to version "2 - Server discovery"
+Sep 04, 2023 11:34:04 AM org.flywaydb.core.internal.command.DbMigrate doMigrateGroup
+INFO: Migrating schema "PUBLIC" to version "3 - Jar symbols"
+Sep 04, 2023 11:34:04 AM org.flywaydb.core.internal.command.DbMigrate doMigrateGroup
+INFO: Migrating schema "PUBLIC" to version "4 - Fingerprints"
+Sep 04, 2023 11:34:04 AM org.flywaydb.core.internal.command.DbMigrate logSummary
+INFO: Successfully applied 4 migrations to schema "PUBLIC", now at version v4 (execution time 00:00.037s)
+2023.09.04 11:34:04 INFO  time: initialize in 1.07s
+2023.09.04 11:34:06 WARN  Build server is not auto-connectable.
+2023.09.04 11:34:06 WARN  no build target for: /Users/aaronserpilin/Documents/VU/Second-Year/First-Period/Object-Oriented-Functional-Programming/Scala-Assignments/OOFP-Warmup/src/warmup/Exercises.scala
+2023.09.04 11:34:20 INFO  no build target found for /Users/aaronserpilin/Documents/VU/Second-Year/First-Period/Object-Oriented-Functional-Programming/Scala-Assignments/OOFP-Warmup/src/warmup/Exercises.scala. Using presentation compiler with project's scala-library version: 3.3.0
+Sep 04, 2023 11:34:21 AM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3
+Sep 04, 2023 11:34:21 AM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2
+Sep 04, 2023 11:34:21 AM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 1
+Sep 04, 2023 11:34:21 AM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 6
+2023.09.04 11:34:25 INFO  time: code lens generation in 18s
+2023.09.04 11:34:25 INFO  time: code lens generation in 3.85s
+2023.09.04 11:47:10 WARN  no build target for: /Users/aaronserpilin/Documents/VU/Second-Year/First-Period/Object-Oriented-Functional-Programming/Scala-Assignments/OOFP-Warmup/src/warmup/Exercises.scala
+2023.09.04 12:11:10 WARN  no build target for: /Users/aaronserpilin/Documents/VU/Second-Year/First-Period/Object-Oriented-Functional-Programming/Scala-Assignments/OOFP-Warmup/src/warmup/Exercises.scala
+2023.09.04 12:13:23 WARN  no build target for: /Users/aaronserpilin/Documents/VU/Second-Year/First-Period/Object-Oriented-Functional-Programming/Scala-Assignments/OOFP-Warmup/src/warmup/Exercises.scala
+2023.09.04 12:40:30 WARN  no build target for: /Users/aaronserpilin/Documents/VU/Second-Year/First-Period/Object-Oriented-Functional-Programming/Scala-Assignments/OOFP-Warmup/src/warmup/Exercises.scala
+2023.09.04 12:40:57 WARN  no build target for: /Users/aaronserpilin/Documents/VU/Second-Year/First-Period/Object-Oriented-Functional-Programming/Scala-Assignments/OOFP-Warmup/src/warmup/Exercises.scala
+2023.09.04 13:33:26 WARN  no build target for: /Users/aaronserpilin/Documents/VU/Second-Year/First-Period/Object-Oriented-Functional-Programming/Scala-Assignments/OOFP-Warmup/src/warmup/Exercises.scala
+2023.09.04 15:30:07 WARN  no build target for: /Users/aaronserpilin/Documents/VU/Second-Year/First-Period/Object-Oriented-Functional-Programming/Scala-Assignments/OOFP-Warmup/test/warmup/AverageGradeTests.scala
+2023.09.04 16:38:31 INFO  Shutting down server
+2023.09.04 16:38:31 INFO  shutting down Metals
+2023.09.04 16:38:31 INFO  Exiting server

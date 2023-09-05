@@ -99,6 +99,6 @@ class EloScoresTests extends TestBase {
         val loekResult = loek.rating === 2758.24 +- 0.01
         val finalResult = maxResult && anishResult && janResult && loekResult
 
-        assert(maxResult)
+        assert(finalResult)
     }
 }

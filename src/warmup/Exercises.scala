@@ -7,6 +7,7 @@ import scala.collection.mutable.{ArrayBuffer, ListBuffer, Map}
 object Exercises {
 
 
+
   /* assignment 1:
 
       calculate the _index_ of the first of occurrence of the maximum of an array, give -1 if the array is empty
@@ -25,10 +26,20 @@ object Exercises {
 
    */
   def indexOfMax(a : Array[Int]) : Int = {
-   0
+    if (a.isEmpty) {
+      return -1;
+    } else {
+      var max = a(0)
+      var indexOfMax = 0
+      for (i <- 1 until a.length) {
+        if (a(i) > max) {
+          max = a(i)
+          indexOfMax = i
+        }
+      }
+      return indexOfMax
+    }
   }
-
-
 
   /* Assignment 2:
 
@@ -46,7 +57,23 @@ object Exercises {
   Indication of solution length : 9 lines
    */
   def averageGrade(grades : String) : Double = {
-    0
+    val gradesArray = grades.split(" ")
+    var gradesSummation = 0.0;
+    var numberValidInputs = 0.0;
+
+    for (i <- 0 until gradesArray.length) {
+      var arrayVals = gradesArray(i)
+      if (arrayVals != "NS") {
+        gradesSummation += arrayVals.toDouble
+        numberValidInputs += 1.0;
+      }
+    }
+
+    if (numberValidInputs > 0) {
+      return gradesSummation/numberValidInputs;
+    } else {
+      return 0;
+    }
   }
 
     /* Assignment 3:
@@ -85,7 +112,20 @@ object Exercises {
 
 
   def collatzLength(start : Long) : Long = {
-    0
+    var conjectureLength = 0;
+    var conjectureValue = start;
+
+    while (conjectureValue != 1) {
+      if (conjectureValue % 2 == 0) {
+        conjectureLength += 1;
+        conjectureValue /= 2;
+      } else {
+        conjectureLength += 1;
+        conjectureValue = (3 * conjectureValue) + 1;
+      }
+    }
+
+    return conjectureLength;
   }
 
 
@@ -123,10 +163,36 @@ Note that the last character of each line should be # and that hence the line sh
 Indication of length : 12 lines
    */
 
+  def diamondString(height: Int): String = {
+    val midpointHeight = (height + 1) / 2;
+    var diamondString = "";
 
-  def diamondString(height : Int) : String = {
-    ""
+    for (i <- 0 until midpointHeight) {
+      var diamondSpaces = " " * (midpointHeight - i - 1);
+      var diamondHashtags = "#" * (2 * i + 1);
+      diamondString += (diamondSpaces + diamondHashtags + "\n");
+    }
+
+    var secondHalfwayPoint = 0 ;
+
+    if (height % 2 == 0) {
+      secondHalfwayPoint = midpointHeight -1;
+    } else {
+      secondHalfwayPoint = midpointHeight - 2;
+    }
+
+    for (j <- secondHalfwayPoint to 0 by -1) {
+      var diamondSpaces = " " * (midpointHeight - j - 1);
+      var diamondHashtags = "#" * (2 * j + 1);
+      diamondString += (diamondSpaces + diamondHashtags + "\n");
+    }
+
+    diamondString
   }
+
+
+
+
 
 
   /* Assignment 5: Implement a function word count that gives the word counts for all words in a string.
@@ -157,7 +223,16 @@ Indication of length : 7 lines
 
 
   def wordCount(text : String) : mutable.Map[String,Int] = {
-    mutable.Map[String,Int]()
+
+    val stringWords = text.split("(\\s|\\.|,|!)+")
+    val wordCountMap = mutable.Map[String,Int]();
+
+    stringWords.foreach { word =>
+      val lowerCaseWord = word.toLowerCase();
+      wordCountMap(lowerCaseWord) =  wordCountMap.getOrElse(lowerCaseWord, 0) + 1;
+    }
+
+    return wordCountMap;
   }
 
 
