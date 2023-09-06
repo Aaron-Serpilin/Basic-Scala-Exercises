@@ -266,7 +266,7 @@ that A played. The elo scores used when computing these deltas are the elo score
 
 Indication of length 12 added lines
    */
-  val eloK = 24
+  private val eloK = 24
 
   def updateEloScores(players : List[Player] , games : List[Game]) : Unit = {
 
@@ -379,13 +379,13 @@ Indication of length: 25 added lines. Add extra functions for conceptually defin
     result
   }
 
-  def calculateTimeDifference(startTime: Time, endTime: Time): Double = {
+  private def calculateTimeDifference(startTime: Time, endTime: Time): Double = {
     val startTimeInSeconds = startTime.daysSinceEpoch * 24 * 3600 + startTime.hours * 3600 + startTime.minutes * 60 + startTime.seconds
     val endTimeInSeconds = endTime.daysSinceEpoch * 24 * 3600 + endTime.hours * 3600 + endTime.minutes * 60 + endTime.seconds
     endTimeInSeconds - startTimeInSeconds
   }
 
-  def itsDay (time: Time) : Boolean = {
+  private def itsDay (time: Time) : Boolean = {
     if (time.hours >= 6 && time.hours <= 19) {true} else {false}
   }
 
