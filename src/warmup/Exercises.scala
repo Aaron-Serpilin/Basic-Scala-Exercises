@@ -267,7 +267,7 @@ that A played. The elo scores used when computing these deltas are the elo score
 
 Indication of length 12 added lines
    */
-  val eloK = 24.0
+  val eloK = 24
 
   def updateEloScores(players : List[Player] , games : List[Game]) : Unit = {
 
@@ -276,18 +276,24 @@ Indication of length 12 added lines
       val playerA = game.playerA
       val playerB = game.playerB
       val gameOutcome = game.outcome
+      val playerAProb = game.probabilityCalculator(playerA, playerB)
+      val playerBProb = 1 - playerAProb;
 
       if (gameOutcome == 0.0) { //PlayerA wins
-        playerA.ratingCalculator(playerA, 1.0, game.probabilityCalculator(playerA, playerB))
-        playerB.ratingCalculator(playerB, 0.0, game.probabilityCalculator(playerB, playerA))
+        playerA.ratingCalculator(1.0, playerAProb)
+        playerB.ratingCalculator(0.0, playerBProb)
       } else if (gameOutcome == 1.0) { //Draw
-        playerA.ratingCalculator(playerA, 0.0, game.probabilityCalculator(playerA, playerB))
-        playerB.ratingCalculator(playerB, 1.0, game.probabilityCalculator(playerB, playerA))
+        playerA.ratingCalculator(0.0, playerAProb)
+        playerB.ratingCalculator(1.0, playerBProb)
+      } else if (gameOutcome == 0.5) {
+        playerA.ratingCalculator(0.5, playerAProb)
+        playerB.ratingCalculator(0.5, playerBProb)
       }
 
       for (player <- players) {
         player.rating += player.deltaRatingSummation
-        println("The player ratings are " + player.rating)
+//        println("The player ratings are " + player.rating)
+//        println(s" The rating being added or subtracted : ${player.deltaRatingSummation}")
       }
 
     }
@@ -299,10 +305,10 @@ Indication of length 12 added lines
                 var deltaRatingSummation : Double = 0
               )
   {
-    def ratingCalculator (player: Player, outcome: Double, probability: Double):Unit  = {
+    def ratingCalculator (outcome: Double, probability: Double):Unit  = {
       //drA = k * (aA - eA)
       val deltaRating = eloK * (outcome - probability)
-      player.deltaRatingSummation += deltaRating
+      this.deltaRatingSummation += deltaRating
     }
   }
 
@@ -314,8 +320,7 @@ Indication of length 12 added lines
   {
     def probabilityCalculator (playerA: Player, playerB: Player): Double = {
       //eA = 1 / ( 1 + 10^((rB - rA) / 400)))
-      val playerProb = 1 / (1 + Math.pow(10, (playerB.rating - playerA.rating) / 400))
-      playerProb
+      1 / (1 + Math.pow(10, (playerB.rating - playerA.rating) / 400))
     }
   }
 
@@ -339,9 +344,9 @@ Indication of length 12 added lines
   Observation(cameraSet = "A", licensePlate = "DX-98-DW", time = Time(18492, 13, 4, 1.0))
 
   Program a method that takes the observations of the cameras and produces a list of speed offenders and their speed
-  in the order that the cars passed cameraset B.
+  in the order that the cars passed camera set B.
 
-   ----> Use a map of type Map[String,Time] to store & look up for each license plate at which time cameraset "A" was passed.
+   ----> Use a map of type Map[String,Time] to store & look up for each license plate at which time camera set "A" was passed.
 
 Indication of length: 25 added lines. Add extra functions for conceptually definitions to organize your code.
    */
@@ -349,24 +354,45 @@ Indication of length: 25 added lines. Add extra functions for conceptually defin
   // The used epoch is 1 January 1970. An epoch is an instant in time chosen as the origin of a time scale.
   // (see https://en.wikipedia.org/wiki/Epoch)
   case class Time(daysSinceEpoch : Int, hours : Int, minutes : Int, seconds : Double)
-  // case class means (among other things) that you do not have to type new to create one
-  // so instead of new Time(43,6,3,0) you just type Time(43,6,3,0)
-  // equality and pretty printing are also defined for you
-
 
   case class Observation(cameraSet : String, licensePlate : String, time : Time )
 
   // to convert your speed of type double to an Int use Math.round(speed).toInt
   case class SpeedOffender(licensePlate : String, speed : Int)
 
-  def speedOffenders(observations: Seq[Observation]) : ArrayBuffer[SpeedOffender] = {
-    val startTimeOfCar : mutable.Map[String,Time] = new mutable.HashMap()
-    val result :  ArrayBuffer[SpeedOffender] = new ArrayBuffer()
-    for(observation <- observations) {
-      // use result += elem to add elem
-    }
+  def speedOffenders(observations: Seq[Observation]): ArrayBuffer[SpeedOffender] = {
+    val startTimeOfCar: mutable.Map[String, Time] = new mutable.HashMap()
+    val result: ArrayBuffer[SpeedOffender] = new ArrayBuffer()
 
+    for (observation <- observations) {
+      val licensePlate = observation.licensePlate
+      //If car has passed by cameraA already and is passing by cameraB, we now compare its start time with its current time (the end time)
+      if (startTimeOfCar.contains(licensePlate)) {
+        val startTime = startTimeOfCar(licensePlate)
+        val timeDifferenceInSeconds = calculateTimeDifference(startTime, observation.time)
+        val speed = ((1500 / timeDifferenceInSeconds) * 3.6).toInt //We get the speed in km/h from the times it takes in s to travel 1500 m
+
+        if (itsDay(startTime) && speed > 100) { //dayTime offender
+          result += SpeedOffender(observation.licensePlate, speed)
+        } else if (!itsDay(startTime) && speed > 120) { //nightTime offender
+          result += SpeedOffender(observation.licensePlate, speed)
+        }
+
+      } else { //If the car is passing by cameraA for the first time, we store its start time
+        startTimeOfCar(licensePlate) = observation.time
+      }
+    }
     result
+  }
+
+  def calculateTimeDifference(startTime: Time, endTime: Time): Double = {
+    val startTimeInSeconds = startTime.daysSinceEpoch * 24 * 3600 + startTime.hours * 3600 + startTime.minutes * 60 + startTime.seconds
+    val endTimeInSeconds = endTime.daysSinceEpoch * 24 * 3600 + endTime.hours * 3600 + endTime.minutes * 60 + endTime.seconds
+    endTimeInSeconds - startTimeInSeconds
+  }
+
+  def itsDay (time: Time) : Boolean = {
+    if (time.hours >= 6 && time.hours <= 19) {true} else {false}
   }
 
   /* Assignment 8: Program a method that split any non-empty array into two arrays.
