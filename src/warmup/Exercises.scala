@@ -289,13 +289,10 @@ Indication of length 12 added lines
         playerA.ratingCalculator(0.5, playerAProb)
         playerB.ratingCalculator(0.5, playerBProb)
       }
+    }
 
-      for (player <- players) {
-        player.rating += player.deltaRatingSummation
-//        println("The player ratings are " + player.rating)
-//        println(s" The rating being added or subtracted : ${player.deltaRatingSummation}")
-      }
-
+    for (player <- players) {
+      player.rating += player.deltaRatingSummation
     }
   }
 
@@ -306,7 +303,6 @@ Indication of length 12 added lines
               )
   {
     def ratingCalculator (outcome: Double, probability: Double):Unit  = {
-      //drA = k * (aA - eA)
       val deltaRating = eloK * (outcome - probability)
       this.deltaRatingSummation += deltaRating
     }
@@ -319,7 +315,6 @@ Indication of length 12 added lines
             )
   {
     def probabilityCalculator (playerA: Player, playerB: Player): Double = {
-      //eA = 1 / ( 1 + 10^((rB - rA) / 400)))
       1 / (1 + Math.pow(10, (playerB.rating - playerA.rating) / 400))
     }
   }

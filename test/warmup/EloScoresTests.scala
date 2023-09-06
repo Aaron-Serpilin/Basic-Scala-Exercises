@@ -9,6 +9,7 @@ import warmup.infrastructure.TestBase
 @RunWith(classOf[JUnitRunner])
 class EloScoresTests extends TestBase {
     test("elo1") {
+
         val jaap = new Player("Jaap", 2000)
         val piet = new Player("Piet", 2200)
         val game = new Game(jaap, piet, 0.0)
@@ -22,6 +23,7 @@ class EloScoresTests extends TestBase {
     }
 
     test("elo2") {
+
         val piet = new Player("Piet", 1500)
         val mies = new Player("Mies", 1700)
         val ella = new Player("Ella", 1400)
@@ -45,6 +47,7 @@ class EloScoresTests extends TestBase {
     }
 
     test("elo3") {
+
         val jaap = new Player("Jaap", 2000)
         val piet = new Player("Piet", 2200)
         val mies = new Player("Mies", 2600)
@@ -73,6 +76,7 @@ class EloScoresTests extends TestBase {
     }
 
     test("elo4") {
+
         val max = new Player("Max", 2882)
         val anish = new Player("Anish", 2872)
         val jan = new Player("Jan", 2852)
