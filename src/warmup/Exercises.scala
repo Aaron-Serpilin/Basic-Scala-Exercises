@@ -26,9 +26,8 @@ object Exercises {
 
    */
   def indexOfMax(a : Array[Int]) : Int = {
-    if (a.isEmpty) {
-      return -1;
-    } else {
+    if (a.isEmpty) -1
+    else {
       var max = a(0)
       var indexOfMax = 0
       for (i <- 1 until a.length) {
@@ -58,14 +57,14 @@ object Exercises {
    */
   def averageGrade(grades : String) : Double = {
     val gradesArray = grades.split(" ")
-    var gradesSummation = 0.0;
-    var numberValidInputs = 0.0;
+    var gradesSummation = 0.0
+    var numberValidInputs = 0.0
 
     for (i <- 0 until gradesArray.length) {
-      var arrayVals = gradesArray(i)
+      val arrayVals = gradesArray(i)
       if (arrayVals != "NS") {
         gradesSummation += arrayVals.toDouble
-        numberValidInputs += 1.0;
+        numberValidInputs += 1.0
       }
     }
 
@@ -106,20 +105,20 @@ object Exercises {
      */
 
   def collatzLength(start : Long) : Long = {
-    var conjectureLength = 0;
-    var conjectureValue = start;
+    var conjectureLength = 0
+    var conjectureValue = start
 
     while (conjectureValue != 1) {
       if (conjectureValue % 2 == 0) {
-        conjectureLength += 1;
-        conjectureValue /= 2;
+        conjectureLength += 1
+        conjectureValue /= 2
       } else {
-        conjectureLength += 1;
-        conjectureValue = (3 * conjectureValue) + 1;
+        conjectureLength += 1
+        conjectureValue = (3 * conjectureValue) + 1
       }
     }
 
-    conjectureLength;
+    conjectureLength
   }
 
 
@@ -158,22 +157,22 @@ Indication of length : 12 lines
    */
 
   def diamondString(height: Int): String = {
-    val midpointHeight = (height + 1) / 2;
-    var diamondString = "";
+    val midpointHeight = (height + 1) / 2
+    var diamondString = ""
 
     for (i <- 0 until midpointHeight) {
-      var diamondSpaces = " " * (midpointHeight - i - 1);
-      var diamondHashtags = "#" * (2 * i + 1);
-      diamondString += (diamondSpaces + diamondHashtags + "\n");
+      val diamondSpaces = " " * (midpointHeight - i - 1)
+      val diamondHashtags = "#" * (2 * i + 1)
+      diamondString += (diamondSpaces + diamondHashtags + "\n")
     }
 
     var secondHalfwayPoint = 0 ;
     if (height % 2 == 0) { secondHalfwayPoint = midpointHeight -1 } else { secondHalfwayPoint = midpointHeight - 2;}
 
     for (j <- secondHalfwayPoint to 0 by -1) {
-      var diamondSpaces = " " * (midpointHeight - j - 1);
-      var diamondHashtags = "#" * (2 * j + 1);
-      diamondString += (diamondSpaces + diamondHashtags + "\n");
+      val diamondSpaces = " " * (midpointHeight - j - 1)
+      val diamondHashtags = "#" * (2 * j + 1)
+      diamondString += (diamondSpaces + diamondHashtags + "\n")
     }
 
     diamondString
@@ -210,14 +209,14 @@ Indication of length : 7 lines
   def wordCount(text : String) : mutable.Map[String,Int] = {
 
     val stringWords = text.split("(\\s|\\.|,|!)+")
-    val wordCountMap = mutable.Map[String,Int]();
+    val wordCountMap = mutable.Map[String,Int]()
 
     stringWords.foreach { word =>
-      val lowerCaseWord = word.toLowerCase();
-      wordCountMap(lowerCaseWord) =  wordCountMap.getOrElse(lowerCaseWord, 0) + 1;
+      val lowerCaseWord = word.toLowerCase()
+      wordCountMap(lowerCaseWord) =  wordCountMap.getOrElse(lowerCaseWord, 0) + 1
     }
 
-    wordCountMap;
+    wordCountMap
   }
 
   /* Assignment 6: Elo ratings
@@ -277,15 +276,15 @@ Indication of length 12 added lines
       val playerB = game.playerB
       val gameOutcome = game.outcome
       val playerAProb = game.probabilityCalculator(playerA, playerB)
-      val playerBProb = 1 - playerAProb;
+      val playerBProb = 1 - playerAProb
 
       if (gameOutcome == 0.0) { //PlayerA wins
         playerA.ratingCalculator(1.0, playerAProb)
         playerB.ratingCalculator(0.0, playerBProb)
-      } else if (gameOutcome == 1.0) { //Draw
+      } else if (gameOutcome == 1.0) { //PlayerB wins
         playerA.ratingCalculator(0.0, playerAProb)
         playerB.ratingCalculator(1.0, playerBProb)
-      } else if (gameOutcome == 0.5) {
+      } else if (gameOutcome == 0.5) { //Draw
         playerA.ratingCalculator(0.5, playerAProb)
         playerB.ratingCalculator(0.5, playerBProb)
       }
@@ -508,7 +507,7 @@ Indication of length: 5 lines
 
   def mergeSort(a: Array[Int]): Array[Int] = {
     if (a.length <= 1) {
-      return a
+      a
     } else {
       val (firstHalf, secondHalf) = splitArray(a)
       val sortedFirstHalf = mergeSort(firstHalf)
